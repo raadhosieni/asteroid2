@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Asteroid Ship 2</title>
+    <style></style>
+  </head>
+  <body>
+    <canvas id="canvas" width="800" height="500"></canvas>
+    <script src="LAB.min.js"></script>
+    <script>
+      $LAB
+        .script("./geom/Vector2.js")
+        .wait()
+        .script("./Sound.js")
+        .wait()
+        .script("./Helper.js")
+        .wait()
+        .script("./system/Keys.js")
+        .wait()
+        .script("./inputs/Keyboard.js")
+        .wait()
+        .script("GameObject.js")
+        .wait()
+        .script("Text.js")
+        .wait()
+        .script("Explosion.js")
+        .wait()
+        .script("Lazer.js")
+        .wait()
+        .script("Ship.js")
+        .wait()
+        .script("Roid.js")
+        .wait()
+        .script("Canvas2D.js")
+        .wait()
+        .script("AsteroidShipGameWorld.js")
+        .wait()
+        .script("Game.js")
+        .wait(function () {
+          Game.start("canvas", { w: 800, h: 500 });
+        });
+    </script>
+  </body>
+</html>
