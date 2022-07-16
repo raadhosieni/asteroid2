@@ -2,6 +2,8 @@ const LAZER_MAX_DISTANCE = 500; // in pixel
 const LAZER_SPEED = 600; // lazer velocity in pixels per seconds
 const SHIP_DEAD_TIME = 3; // time the ship take when hitted by a roid in seconds
 const SHIP_BLINK_FRAMES_NUM = 280; // 30 frames the ship will blink before collide with roids
+const MAX_LAZER_SHOOTS = 20;
+const THRUSTING_AMOUNT = 15;
 
 function Ship(position) {
   GameObject.call(this);
@@ -61,7 +63,7 @@ Ship.prototype.update = function (delta) {
 
     // update thrusting
     if (this.thrusting) {
-      let v = new Vector2(15, -15);
+      let v = new Vector2(THRUSTING_AMOUNT, -THRUSTING_AMOUNT);
       this.thrust.addTo(v);
     } else {
       this.thrust.subtractFrom(
@@ -77,7 +79,7 @@ Ship.prototype.update = function (delta) {
   }
 
   // shoot
-  if (this.canShoot && this.lazers.length <= 20 && !this.dead) {
+  if (this.canShoot && this.lazers.length <= MAX_LAZER_SHOOTS && !this.dead) {
     let v = new Vector2(Math.cos(this.rotation), -Math.sin(this.rotation));
 
     let lazerVeclocity = v.multiply(LAZER_SPEED);
@@ -108,6 +110,10 @@ Ship.prototype.update = function (delta) {
   }
 
   // check if ship hitted by a roid
+  this.checkColllisionWithRoid();
+};
+
+Ship.prototype.checkColllisionWithRoid = function () {
   if (!this.dead && this.blinkFramesNum <= 0) {
     Game.gameWorld.roids.forEach((roid) => {
       if (Game.gameWorld.checkCollision(this, roid)) {
