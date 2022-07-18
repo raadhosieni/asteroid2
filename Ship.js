@@ -2,7 +2,7 @@ const LAZER_MAX_DISTANCE = 500; // in pixel
 const LAZER_SPEED = 600; // lazer velocity in pixels per seconds
 const SHIP_DEAD_TIME = 3; // time the ship take when hitted by a roid in seconds
 const SHIP_BLINK_FRAMES_NUM = 280; // 30 frames the ship will blink before collide with roids
-const MAX_LAZER_SHOOTS = 20;
+const MAX_LAZER_SHOOTS = 5;
 const THRUSTING_AMOUNT = 15;
 
 function Ship(position) {
@@ -24,31 +24,30 @@ Ship.prototype = Object.create(GameObject.prototype);
 
 Ship.prototype.handleInput = function (delta) {
   // add thrusting
-  if (Keyboard.keyDown === Keys.UP) {
+  if (Keyboard.down(Keys.UP)) {
     this.thrusting = true;
+  } else {
+    this.thrusting = false;
   }
 
   // rotate ship left
-  if (Keyboard.keyDown === Keys.LEFT) {
+  if (Keyboard.down(Keys.LEFT)) {
     this.rotationSpeed = Math.PI * 2;
   }
 
   // rotate ship right
-  if (Keyboard.keyDown === Keys.RIGHT) {
+
+  if (Keyboard.down(Keys.RIGHT)) {
     this.rotationSpeed = -Math.PI * 2;
   }
 
-  if (Keyboard.keyUp === Keys.LEFT || Keyboard.keyUp === Keys.RIGHT) {
+  if (!Keyboard.down(Keys.LEFT) && !Keyboard.down(Keys.RIGHT)) {
     this.rotationSpeed = 0;
   }
 
   // handle shooting
-  if (Keyboard.keyDown === Keys.SPACE) {
+  if (Keyboard.pressed(Keys.SPACE)) {
     this.canShoot = true;
-  }
-
-  if (Keyboard.keyUp === Keys.UP) {
-    this.thrusting = false;
   }
 };
 

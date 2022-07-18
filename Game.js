@@ -19,6 +19,7 @@ Game_Singleton.prototype.mainLoop = function () {
   Game.gameWorld.handleEdge(delta);
   Canvas2D.clear();
   Game.gameWorld.draw();
+  Keyboard.reset();
   requestAnimationFrame(Game.mainLoop);
 };
 
